@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: springboot-helloworld-container
-          image: codingguru.azurecr.io/springboot-helloworld:latest
+          image: mycontainer0034.azurecr.io/eidankhan/spring-boot-helloworld:#{Build.BuildId}#
           ports:
             - containerPort: 8029
 ---
