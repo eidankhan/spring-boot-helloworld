@@ -1,15 +1,12 @@
-# syntax=docker/dockerfile:1
+FROM maven:3-eclipse-temurin-17 as BUILD
 
-FROM eclipse-temurin:17-jdk-jammy
+COPY . /usr/src/app
+RUN mvn --batch-mode -f /usr/src/app/pom.xml clean package
 
-EXPOSE 8029
+FROM eclipse-temurin:17-jre
+ENV PORT 8080
+EXPOSE 8080
+COPY --from=BUILD /usr/src/app/target /opt/target
+WORKDIR /opt/target
 
-WORKDIR /app
-
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
-# gRUN ./mvnw dependency:resolve
-
-COPY src ./src
-
-CMD ["./mvnw", "spring-boot:run"]
+CMD ["/bin/bash", "-c", "find -type f -name '*-SNAPSHOT.jar' | xargs java -jar"]
