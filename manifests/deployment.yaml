@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployToAKS
+  labels:
+    app: deployToAKS
+  namespace: namespace-workflow-1702045672890
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deployToAKS
+  template:
+    metadata:
+      labels:
+        app: deployToAKS
+    spec:
+      containers:
+        - name: deployToAKS
+          image: mycontainer05.azurecr.io/image-workflow-1702045672890:latest
+          ports:
+            - containerPort: 8080

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: deployToAKS
+  namespace: namespace-workflow-1702045672890
+spec:
+  type: LoadBalancer
+  selector:
+    app: deployToAKS
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
